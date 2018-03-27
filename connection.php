@@ -1,17 +1,8 @@
 <?php
 
-class Db {
-    private static $instance = null;
-
-    private function __construct(){}
-
-    private function __clone(){}
-
-    public function getInstance() {
-        if(!isset(self::$instance)) {
-            $pdo_options[PDO::ATTR_MODE] = PDO::ERR_EXCEPTION;
-            self::$instance = new PDO('mysql:host=localhost;dbname=diatmika','root','',$pdo_options);
-        }
-        return self::$instance;
-    }
+try {
+	$connect = new PDO('mysql:host=127.0.0.1;dbname=diatmika','root','',[PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+	session_start();
+} catch (PDOException $e) {
+	echo $e->getMessage();
 }

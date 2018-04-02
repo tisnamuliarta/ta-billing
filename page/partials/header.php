@@ -11,10 +11,12 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/page/admin.php">Admin</a></li>
+            <?php if ($_SESSION['jabatan'] == 'admin'): ?>
+                <li><a href="/page/admin.php">Admin</a></li>
+            <?php endif; ?>
             <li><a href="/page/customer.php">Customer</a></li>
             <li><a href="/page/transaksi.php">Transaksi</a></li>
-            <li class="dropdown">
+            <!-- <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#">Action</a></li>
@@ -25,13 +27,8 @@
                 <li class="divider"></li>
                 <li><a href="#">One more separated link</a></li>
               </ul>
-            </li>
+            </li> -->
           </ul>
-          <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search">
-            </div>
-          </form>
         </div>
         <!-- /.navbar-collapse -->
         <!-- Navbar Right Menu -->
@@ -79,7 +76,7 @@
                     <?php echo $_SESSION['username'] ?> - <?= $_SESSION['jabatan'] ?>
                   </p>
                 </li>
-                
+
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <!-- <div class="pull-left">

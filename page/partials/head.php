@@ -17,13 +17,14 @@ if (!isset($_SESSION['logged_id']) ) {
   <link rel="stylesheet" href="<?php __DIR__ ?>/assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?php __DIR__ ?>/assets/bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="<?php __DIR__ ?>/assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php __DIR__ ?>/assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?php __DIR__ ?>/assets/dist/css/skins/_all-skins.min.css">
 
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="<?php __DIR__ ?>/assets/css/style.css">
 </head>
 <body class="hold-transition skin-blue layout-top-nav">
   <div class="wrapper">

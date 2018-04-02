@@ -5,45 +5,45 @@ require_once(__DIR__.'/partials/head.php');
 ?>
 <div class="container">
     <section class="content">
-    <div class="row">
-        <div class="col-lg-12 col-xs-12">
-            <!-- small box -->
-            <div class="box">
-            <div class="box-header  with-border">
-                <h3 class="box-title"><i class="fa fa-user"></i> Data User</h3>
-                <div id="alert_action"></div>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="col-sm-1 pull-right">
-                            <button type="button" name="add" id="add_button" class="btn form-control btn-success btn-xs">Tambah</button>
-                            <br><br>
+        <div class="row">
+            <div class="col-lg-12 col-xs-12">
+                <!-- small box -->
+                <div class="box">
+                <div class="box-header  with-border">
+                    <h3 class="box-title"><i class="fa fa-user"></i> Data User</h3>
+                    <div id="alert_action"></div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-1 pull-right">
+                                <button type="button" name="add" id="add_button" class="btn form-control btn-success btn-xs">Tambah</button>
+                                <br><br>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="table-responsive">
-                            <table id="userstable" class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                <th>No</th>
-                                <th>Username</th>
-                                <th>Jabatan</th>
-                                <th>No Telepon</th>
-                                <th>Alamat</th>
-                                <th>Status</th>
-                                <th></th>
-                                <th></th>
-                                </tr>
-                                </thead>
-                            </table>
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table id="userstable" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                    <th>No</th>
+                                    <th>Username</th>
+                                    <th>Jabatan</th>
+                                    <th>No Telepon</th>
+                                    <th>Alamat</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                    <th></th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                </div>
             </div>
         </div>
-    </div>
     </section>
 </div>
 

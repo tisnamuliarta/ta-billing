@@ -13,6 +13,11 @@
 <script src="<?php __DIR__ ?>/assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="<?php __DIR__ ?>/assets/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- date-range-picker -->
+<script src="<?php __DIR__ ?>/assets/bower_components/moment/min/moment.min.js"></script>
+<script src="<?php __DIR__ ?>/assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap datepicker -->
+<script src="<?php __DIR__ ?>/assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php __DIR__ ?>/assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php __DIR__ ?>/assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -23,6 +28,12 @@
 		var url = window.location.pathname;
 		$('ul.navbar-nav li a[href="' + url + '"]').parent().addClass('active');
 	    $('li#link-sidebar a[href="' + url + '"]').parent().addClass('active');
+
+		//Date picker
+		$('#datepicker').datepicker({
+		  	autoclose: true,
+			format: 'mm-dd-yyyy'
+		})
 
 	})
 </script>

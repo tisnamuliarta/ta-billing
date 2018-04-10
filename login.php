@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'connection.php';
 // include 'controller/Login.php';
 // createGuru($connect);
@@ -29,7 +29,7 @@ if (isset($_POST['login'])) {
                     $_SESSION['jabatan'] = $row['jabatan'];
                     $_SESSION['status'] = $row['status'];
                     $_SESSION['avatar'] = $row['avatar'];
-                    
+
                     header("location: index.php");
                 }else {
                     $message = "<label class='text-danger'>Password salah!</label>";
@@ -49,7 +49,7 @@ if (isset($_POST['login'])) {
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>TK SINAR PRIMA | LOGIN</title>
+  <title>LOGIN</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="<?php __DIR__ ?>/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->

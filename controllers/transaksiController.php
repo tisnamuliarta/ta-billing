@@ -142,9 +142,11 @@ function getDataTransaksi($connect) {
     $query = '';
     $output = [];
     $query .= "
-        SELECT tb_transaksi.*,tb_customer.nama as nama_customer
+        SELECT tb_transaksi.*,tb_customer.nama as nama_customer, tb_admin.username as admin_username, tb_pengerjaan_transaksi.status as status_pengerjaan
         from tb_transaksi
         LEFT JOIN tb_customer ON tb_transaksi.id_customer = tb_customer.id
+        LEFT JOIN tb_pengerjaan_transaksi ON tb_transaksi.id = tb_pengerjaan_transaksi.id_transaksi
+        LEFT JOIN tb_admin ON tb_admin.id = tb_pengerjaan_transaksi.id_admin
     ";
     if (isset($_GET["search"]["value"])) {
         $query .= 'WHERE tb_customer.nama LIKE "%'.$_GET["search"]["value"].'%" ';
@@ -177,9 +179,14 @@ function getDataTransaksi($connect) {
         $sub_array[] = number_format($row['uang_muka']);
         $sub_array[] = number_format($row['total_transaksi']);
         $sub_array[] = $row['status'];
+        $sub_array[] = $row['admin_username'];
         // $sub_array[] = $row['avatar'];
         $sub_array[] = '<button type="button" name="update" id="'.$row["id"].'" class="btn btn-warning btn-xs update-user">Ubah</button>';
-        $sub_array[] = '<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-danger btn-xs delete-user" data-status="'.$row["status"].'">Hapus</button>';
+        if ($row['status_pengerjaan'] == 0) {
+            $sub_array[] = '<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-info btn-xs perkerjaan" data-status="'.$row["status"].'">Ambil Pekerjaan</button>';
+        }else {
+            $sub_array[] = '<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-info btn-xs perkerjaan" data-status="'.$row["status"].'">Lanjutkan Pekerjaan</button>';
+        }
         $data[] = $sub_array;
     }
 

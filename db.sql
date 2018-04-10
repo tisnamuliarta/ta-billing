@@ -26,17 +26,18 @@ CREATE TABLE IF NOT EXISTS `tb_admin` (
   `password` varchar(250) NOT NULL,
   `status` varchar(10) NOT NULL DEFAULT 'active',
   `avatar` varchar(200) NOT NULL DEFAULT 'default.png',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table diatmika.tb_admin: ~3 rows (approximately)
 DELETE FROM `tb_admin`;
 /*!40000 ALTER TABLE `tb_admin` DISABLE KEYS */;
-INSERT INTO `tb_admin` (`id`, `username`, `jabatan`, `tlpn`, `alamat`, `password`, `status`, `avatar`, `created_at`) VALUES
-	(1, 'admin', 'admin', '23', '23', '$2y$10$dyVRF/dV2xyh8IvJIuxgveg5rkGdtZCmeLAKJxYSanLUO3wem6Wia', 'active', 'default.png', '2018-04-02 22:42:30'),
-	(13, 'admin2', 'desainer', '123', 'Denpasar', '$2y$10$/D7vyxTDw5iyyjvZBc8d9.eU2947yhfYfLkAs4xL6F6jwed2HqOHS', 'non-active', 'default.png', '2018-04-02 22:36:47'),
-	(14, 'admin1', 'desainer', '123', 'Denpasar', '$2y$10$QewNquBMiKk/iFj3F0TKiuFjz.aWUquLxKHZmdd3NBI9CMSGGPswm', 'active', 'default.png', '2018-04-02 22:48:00');
+INSERT INTO `tb_admin` (`id`, `username`, `jabatan`, `tlpn`, `alamat`, `password`, `status`, `avatar`, `created_at`, `updated_at`) VALUES
+	(1, 'admin', 'admin', '23', '23', '$2y$10$dyVRF/dV2xyh8IvJIuxgveg5rkGdtZCmeLAKJxYSanLUO3wem6Wia', 'active', 'default.png', '2018-04-02 22:42:30', '2018-04-10 07:35:38'),
+	(13, 'admin2', 'desainer', '123', 'Denpasar', '$2y$10$/D7vyxTDw5iyyjvZBc8d9.eU2947yhfYfLkAs4xL6F6jwed2HqOHS', 'non-active', 'default.png', '2018-04-02 22:36:47', '2018-04-10 07:35:38'),
+	(14, 'admin1', 'desainer', '123', 'Denpasar', '$2y$10$QewNquBMiKk/iFj3F0TKiuFjz.aWUquLxKHZmdd3NBI9CMSGGPswm', 'active', 'default.png', '2018-04-02 22:48:00', '2018-04-10 07:35:38');
 /*!40000 ALTER TABLE `tb_admin` ENABLE KEYS */;
 
 -- Dumping structure for table diatmika.tb_customer
@@ -46,15 +47,16 @@ CREATE TABLE IF NOT EXISTS `tb_customer` (
   `tlpn` varchar(20) NOT NULL,
   `alamat` text NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'active',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table diatmika.tb_customer: ~0 rows (approximately)
+-- Dumping data for table diatmika.tb_customer: ~1 rows (approximately)
 DELETE FROM `tb_customer`;
 /*!40000 ALTER TABLE `tb_customer` DISABLE KEYS */;
-INSERT INTO `tb_customer` (`id`, `nama`, `tlpn`, `alamat`, `status`, `created_at`) VALUES
-	(1, 'Tisna Adi', '232332323', 'sasa', 'active', '2018-04-02 23:40:32');
+INSERT INTO `tb_customer` (`id`, `nama`, `tlpn`, `alamat`, `status`, `created_at`, `updated_at`) VALUES
+	(1, 'Tisna Adi', '232332323', 'sasa', 'active', '2018-04-02 23:40:32', '2018-04-10 07:35:21');
 /*!40000 ALTER TABLE `tb_customer` ENABLE KEYS */;
 
 -- Dumping structure for table diatmika.tb_pengerjaan
@@ -65,7 +67,8 @@ CREATE TABLE IF NOT EXISTS `tb_pengerjaan` (
   `akhir_pengerjaan` datetime NOT NULL,
   `waktu_stop` datetime NOT NULL,
   `selesai` tinyint(1) NOT NULL DEFAULT '0',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_tb_pengerjaan_tb_transaksi` (`id_transaksi`),
   CONSTRAINT `FK_tb_pengerjaan_tb_transaksi` FOREIGN KEY (`id_transaksi`) REFERENCES `tb_transaksi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -75,6 +78,23 @@ CREATE TABLE IF NOT EXISTS `tb_pengerjaan` (
 DELETE FROM `tb_pengerjaan`;
 /*!40000 ALTER TABLE `tb_pengerjaan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tb_pengerjaan` ENABLE KEYS */;
+
+-- Dumping structure for table diatmika.tb_pengerjaan_transaksi
+CREATE TABLE IF NOT EXISTS `tb_pengerjaan_transaksi` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_transaksi` int(10) unsigned NOT NULL,
+  `id_admin` int(10) unsigned NOT NULL,
+  `waktu` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table diatmika.tb_pengerjaan_transaksi: ~0 rows (approximately)
+DELETE FROM `tb_pengerjaan_transaksi`;
+/*!40000 ALTER TABLE `tb_pengerjaan_transaksi` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_pengerjaan_transaksi` ENABLE KEYS */;
 
 -- Dumping structure for table diatmika.tb_transaksi
 CREATE TABLE IF NOT EXISTS `tb_transaksi` (

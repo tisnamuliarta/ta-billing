@@ -33,6 +33,7 @@ require_once(__DIR__.'/partials/head.php');
                                         <th>DP</th>
                                         <th>Total Transaksi</th>
                                         <th>Status</th>
+                                        <th>Dikerjan Oleh</th>
                                         <th></th>
                                         <th></th>
                                     </tr>

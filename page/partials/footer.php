@@ -23,6 +23,8 @@
 <script src="<?php __DIR__ ?>/assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="<?php __DIR__ ?>/assets/dist/js/adminlte.min.js"></script>
 <script src="<?php __DIR__ ?>/assets/js/app.js"></script>
+<script src="<?php __DIR__ ?>/assets/js/index.js"></script>
+<script src="<?php __DIR__ ?>/assets/js/jsCookie.js"></script>
 <script type="text/javascript">
 	$(function(){
 		var url = window.location.pathname;

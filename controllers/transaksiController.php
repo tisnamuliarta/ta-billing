@@ -183,9 +183,9 @@ function getDataTransaksi($connect) {
         // $sub_array[] = $row['avatar'];
         $sub_array[] = '<button type="button" name="update" id="'.$row["id"].'" class="btn btn-warning btn-xs update-user">Ubah</button>';
         if ($row['status_pengerjaan'] == 0) {
-            $sub_array[] = '<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-info btn-xs perkerjaan" data-status="'.$row["status"].'">Ambil Pekerjaan</button>';
+            $sub_array[] = '<button type="button" name="ambil_pekerjaan" id="ambil_pekerjaan_'.$row["id"].'" class="btn btn-info btn-xs perkerjaan" data-status="'.$row["status"].'">Ambil Pekerjaan</button>';
         }else {
-            $sub_array[] = '<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-info btn-xs perkerjaan" data-status="'.$row["status"].'">Lanjutkan Pekerjaan</button>';
+            $sub_array[] = '<button type="button" name="ambil_pekerjaan" id="ambil_pekerjaan_'.$row["id"].'" class="btn btn-info btn-xs perkerjaan" data-status="'.$row["status"].'">Lanjutkan Pekerjaan</button>';
         }
         $data[] = $sub_array;
     }

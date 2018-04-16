@@ -102,7 +102,7 @@ require_once(__DIR__.'/partials/head.php');
             }
         })
     });
-        // ============= Display single data and update
+    // ============= Display single data and update
     $(document).on('click','.update-user',function(){
         var id = $(this).attr("id");
         $('#password').prop('disabled',true);
@@ -151,7 +151,46 @@ require_once(__DIR__.'/partials/head.php');
         }
     })
 
+    // ============= Display single data and update
+    $(document).on('click','.perkerjaan',function(){
+        var id = $(this).attr("id");
+        $('#password').prop('disabled',true);
+        $('#username').prop('disabled',true);
+        var btn_action = 'fetch_single';
+        $('#pengerjaanModal').modal({
+            show: true,
+            backdrop: 'static',
+            keyboard: false
+        });
+    });
 </script>
+
+<div id="pengerjaanModal" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <form method="post" id="pengerjaan_form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-plus"></i> Add Brand</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="errors"><span class="text-danger" id="text_error"></span></div>
+                    <input type="text" name="time" value="" id="timer">
+                    <button id="startButton">Start</button>
+                    <button id="pauseButton">Pause</button>
+                    <button id="clearButton">Clear</button>
+                    <div id="additionalTime" style="display:none">0</div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="user_id" id="user_id" />
+                    <input type="hidden" name="btn_action" id="btn_action" />
+                    <input type="submit" name="action" id="action" class="btn btn-info" value="Add" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div id="transaksiModal" class="modal fade">
     <div class="modal-dialog">

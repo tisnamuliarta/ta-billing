@@ -151,10 +151,9 @@ function getDataAdmin($connect) {
     $query .= "
         SELECT tb_admin.*
         from tb_admin
-        WHERE tb_admin.status = 'active'
     ";
     if (isset($_GET["search"]["value"])) {
-        $query .= 'AND tb_admin.username LIKE "%'.$_GET["search"]["value"].'%" ';
+        $query .= 'WHERE tb_admin.username LIKE "%'.$_GET["search"]["value"].'%" ';
         $query .= 'AND tb_admin.jabatan LIKE "%'.$_GET["search"]["value"].'%" ';
         $query .= 'AND tb_admin.tlpn LIKE "%'.$_GET["search"]["value"].'%" ';
         $query .= 'AND tb_admin.alamat LIKE "%'.$_GET["search"]["value"].'%" ';

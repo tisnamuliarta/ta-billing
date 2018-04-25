@@ -16,16 +16,22 @@ if(isset($_POST['btn_action'])) {
         case 'fetch_single':
             fetchSingle($connect);
             break;
+        case 'fetch_single_pengerjaan':
+            fetchSinglePengerjaan($_POST['id'], $_SESSION['id'], $connect);
+            break;
         case 'Delete':
             deleteData($connect);
+            break;
+        case 'edit_pengerjaan':
+            updatePengerjaan($connect);
             break;
     }
 }
 
 function saveData($connect) {
     $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $query = "INSERT INTO tb_transaksi (id_customer,tgl,pengerjaan,uang_muka,total_transaksi)
-    VALUES (:id_customer,:tgl,:pengerjaan,:uang_muka,:total_transaksi)";
+    $query = "INSERT INTO tb_transaksi (id_customer,tgl,pengerjaan,uang_muka,total_transaksi,kode)
+    VALUES (:id_customer,:tgl,:pengerjaan,:uang_muka,:total_transaksi,:kode)";
     $statement = $connect->prepare($query);
     $tgl = date_create($_POST['tgl']);
     $statement->execute(
@@ -34,9 +40,21 @@ function saveData($connect) {
             ':tgl'              => date_format($tgl, 'Y-m-d'),
             ':pengerjaan'       => $_POST['pengerjaan'],
             ':uang_muka'        => $_POST['uang_muka'],
-            ':total_transaksi'  => $_POST['total_transaksi']
+            ':total_transaksi'  => $_POST['total_transaksi'],
+            ':kode'             => $_POST['kode']
         )
     );
+
+    // get id transaksi
+    $id = $connect->lastInsertId();
+    $queryPengerjaan = "INSERT INTO tb_pengerjaan_transaksi (id_transaksi, id_admin)
+        VALUES (:id_transaksi, :id_admin)";
+    $statement = $connect->prepare($queryPengerjaan);
+    $statement->execute([
+        ':id_transaksi'         => $id,
+        ':id_admin'             => $_POST['id_admin']
+    ]);
+
     $result = $statement->rowCount();
     if ($result > 0) {
         echo json_encode(['errors'=>false,'msg'=>'Data berhasil ditambahkan']);
@@ -58,9 +76,13 @@ function checkname($connect, $nama) {
 }
 
 function fetchSingle($connect) {
-    $query = " SELECT tb_transaksi.*, tb_customer.nama as nama_customer
+    $query = " SELECT tb_transaksi.*, tb_customer.nama as nama_customer,
+        tb_pengerjaan_transaksi.waktu, tb_pengerjaan_transaksi.status as status_pengerjaan, tb_pengerjaan_transaksi.cacheAdditionalTime,
+        tb_admin.username as nama_admin
 		from tb_transaksi
         LEFT JOIN tb_customer ON tb_customer.id = tb_transaksi.id_customer
+        LEFT JOIN tb_pengerjaan_transaksi ON tb_pengerjaan_transaksi.id_transaksi = tb_transaksi.id
+        LEFT JOIN tb_admin ON tb_pengerjaan_transaksi.id_admin = tb_admin.id
         WHERE tb_transaksi.id = :id ";
     $statement = $connect->prepare($query);
     $statement->execute([
@@ -73,16 +95,44 @@ function fetchSingle($connect) {
         $output['nama_customer'] = $row['nama_customer'];
         $output['id_customer'] = $row['id_customer'];
         $output['tgl'] = $row['tgl'];
+        $output['kode'] = $row['kode'];
         $output['pengerjaan'] = $row['pengerjaan'];
         $output['uang_muka'] = $row['uang_muka'];
         $output['total_transaksi'] = $row['total_transaksi'];
+        $output['waktu'] = $row['waktu'];
+        $output['cacheAdditionalTime'] = $row['cacheAdditionalTime'];
+        $output['nama_admin'] = $row['nama_admin'];
+        $output['status'] = $row['status_pengerjaan'];
+    }
+    echo json_encode($output);
+}
+
+function fetchSinglePengerjaan($id, $id_user, $connect) {
+    $query = " SELECT tb_pengerjaan_transaksi.*
+		from tb_pengerjaan_transaksi
+        LEFT JOIN tb_transaksi ON tb_transaksi.id = tb_pengerjaan_transaksi.id_transaksi
+        WHERE tb_pengerjaan_transaksi.id_transaksi = :id
+        ";
+    $statement = $connect->prepare($query);
+    $statement->execute([
+        ':id' => $_POST['id']
+    ]);
+    $result = $statement->fetchAll();
+    // $password = password_hash($_POST['password'],PASSWORD_DEFAULT);
+    foreach ($result as $row) {
+        $output['id'] = $row['id'];
+        $output['id_transaksi'] = $row['id_transaksi'];
+        $output['id_admin'] = $row['id_admin'];
+        $output['waktu'] = $row['waktu'];
+        $output['status'] = $row['status'];
+        $output['cacheAdditionalTime'] = $row['cacheAdditionalTime'];
         $output['status'] = $row['status'];
     }
     echo json_encode($output);
 }
 
 function editData($connect) {
-    // $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+     // $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $query = "
         UPDATE tb_transaksi
@@ -91,6 +141,7 @@ function editData($connect) {
         tgl = :tgl,
         pengerjaan = :pengerjaan,
         uang_muka = :uang_muka,
+        kode = :kode,
         total_transaksi = :total_transaksi
         WHERE id = :id
     ";
@@ -98,15 +149,45 @@ function editData($connect) {
     $tgl = date_create($_POST['tgl']);
     $statement->execute(
         array(
-            ':id'               => $_POST['user_id'],
+            ':id'               => $_POST['transaksi_id'],
             ':id_customer'      => $_POST['id_customer'],
             ':tgl'              => date_format($tgl, 'Y-m-d'),
             ':pengerjaan'       => $_POST['pengerjaan'],
             ':uang_muka'        => $_POST['uang_muka'],
+            ':kode'             => $_POST['kode'],
             ':total_transaksi'  => $_POST['total_transaksi']
         )
     );
     $count = $statement->rowCount();
+    $result = $statement->fetch();
+    if (isset($result)) {
+        echo json_encode(['errors'=>false,'msg'=>"Data telah diupdate!"]);
+    }
+}
+
+function updatePengerjaan($connect) {
+//     $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//    Update Pengerjaan transaksi
+    $query = "
+        UPDATE tb_pengerjaan_transaksi
+        set
+        id_admin = :id_admin,
+        waktu = :waktu,
+        status = :status,
+        cacheAdditionalTime = :cacheAdditionalTime
+        WHERE id = :id
+    ";
+    $statement = $connect->prepare($query);
+    $statement->execute(
+        array(
+            ':id'            => $_POST['user_id'],
+            ':id_admin'      => $_SESSION['id'],
+            ':status'       => ($_POST['status']) ? $_POST['status'] : 0,
+            ':waktu'        => $_POST['waktu'],
+            ':cacheAdditionalTime'  => $_POST['cacheAdditionalTime']
+        )
+    );
+//    Update Transaksi
     $result = $statement->fetch();
     if (isset($result)) {
         echo json_encode(['errors'=>false,'msg'=>"Data telah diupdate!"]);
@@ -139,10 +220,15 @@ function deleteData($connect){
 
 
 function getDataTransaksi($connect) {
+    $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $query = '';
     $output = [];
     $query .= "
-        SELECT tb_transaksi.*,tb_customer.nama as nama_customer, tb_admin.username as admin_username, tb_pengerjaan_transaksi.status as status_pengerjaan
+        SELECT tb_transaksi.*,tb_customer.nama as nama_customer, tb_customer.nama as nama_customer,
+        tb_pengerjaan_transaksi.waktu, tb_pengerjaan_transaksi.status as status_pengerjaan, 
+        tb_pengerjaan_transaksi.cacheAdditionalTime,
+        tb_pengerjaan_transaksi.id_admin,
+        tb_admin.username as nama_admin
         from tb_transaksi
         LEFT JOIN tb_customer ON tb_transaksi.id_customer = tb_customer.id
         LEFT JOIN tb_pengerjaan_transaksi ON tb_transaksi.id = tb_pengerjaan_transaksi.id_transaksi
@@ -171,22 +257,37 @@ function getDataTransaksi($connect) {
     foreach ($result as $row) {
         $idx++;
         $tgl = date_create($row['tgl']);
+        $status_pengerjaan = '' ;
+        $button = '';
+        switch ($row['status_pengerjaan']) {
+            case '0':
+                $status_pengerjaan = 'Belum Dikerjakan';
+                $button = ($row['id_admin'] == $_SESSION['id']) ? '<button type="button" name="ambil_pekerjaan" id="'.$row["id"].'" class="btn btn-warning btn-xs perkerjaan" data-status="'.$status_pengerjaan.'">Ambil Pekerjaan</button>' : '';
+                break;
+            case '1':
+                $status_pengerjaan = 'Sedang dikerjakan';
+                $button = ($row['id_admin'] == $_SESSION['id']) ? '<button type="button" name="ambil_pekerjaan" id="'.$row["id"].'" class="btn btn-info btn-xs perkerjaan" data-status="'.$status_pengerjaan.'">Lanjutkan Pekerjaan</button>' : '';
+                break;
+            case '2':
+                $status_pengerjaan = 'Selesai';
+                $button = '<button type="button" id="'.$row["id"].'" class="btn btn-success btn-xs" data-status="'.$status_pengerjaan.'">Pekerjaan Selesai</button>';
+                break;
+        }
+
         $sub_array = [];
         $sub_array[] = $idx;
         $sub_array[] = date_format($tgl,'d M Y');
         $sub_array[] = $row['nama_customer'];
+        $sub_array[] = $row['kode'];
         $sub_array[] = $row['pengerjaan'];
         $sub_array[] = number_format($row['uang_muka']);
         $sub_array[] = number_format($row['total_transaksi']);
-        $sub_array[] = $row['status'];
-        $sub_array[] = $row['admin_username'];
+        $sub_array[] = $status_pengerjaan;
+        $sub_array[] = $row['nama_admin'];
         // $sub_array[] = $row['avatar'];
-        $sub_array[] = '<button type="button" name="update" id="'.$row["id"].'" class="btn btn-warning btn-xs update-user">Ubah</button>';
-        if ($row['status_pengerjaan'] == 0) {
-            $sub_array[] = '<button type="button" name="ambil_pekerjaan" id="ambil_pekerjaan_'.$row["id"].'" class="btn btn-info btn-xs perkerjaan" data-status="'.$row["status"].'">Ambil Pekerjaan</button>';
-        }else {
-            $sub_array[] = '<button type="button" name="ambil_pekerjaan" id="ambil_pekerjaan_'.$row["id"].'" class="btn btn-info btn-xs perkerjaan" data-status="'.$row["status"].'">Lanjutkan Pekerjaan</button>';
-        }
+        $sub_array[] = '<button type="button" name="update" id="'.$row['id'].'" class="btn btn-warning btn-xs update-user">Ubah</button>';
+        $sub_array[] = $button;
+        $sub_array[] = $row['id_admin'];
         $data[] = $sub_array;
     }
 

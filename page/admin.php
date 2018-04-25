@@ -1,6 +1,6 @@
 <?php
 include ('../connection.php');
-require_once(__DIR__.'/partials/head.php');
+require_once('../include/head.php');
 
 ?>
 <div class="container">
@@ -48,7 +48,7 @@ require_once(__DIR__.'/partials/head.php');
 </div>
 
 
-<?php require_once(__DIR__.'/partials/footer.php') ?>
+<?php require_once('../include/footer.php') ?>
 
 
 

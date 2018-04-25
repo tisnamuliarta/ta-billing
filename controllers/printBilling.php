@@ -11,7 +11,7 @@ $query = "SELECT tb_transaksi.id, tb_transaksi.kode, tb_transaksi.tgl, tb_transa
 	LEFT JOIN tb_pengerjaan_transaksi ON tb_transaksi.id = tb_pengerjaan_transaksi.id_transaksi
 	LEFT JOIN tb_customer ON tb_transaksi.id_customer = tb_customer.id
 	LEFT JOIN tb_admin ON tb_pengerjaan_transaksi.id_admin = tb_admin.id
-	WHERE tb_transaksi.id_customer = '{$id_customer}' AND tb_transaksi.kode = '{$kode}'";
+	WHERE tb_transaksi.id_customer = '{$id_customer}' AND tb_transaksi.kode = '{$kode}' AND tb_pengerjaan_transaksi.status = 2 ";
 $statement = $connect->prepare($query);
 $statement->execute();	
 $results = $statement->fetchAll();	

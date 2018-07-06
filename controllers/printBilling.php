@@ -77,10 +77,29 @@ $pdf->AddPage();
 
 // Set some content to print
 $html = '
-	<span>Kepada </span><br>
-	<span>Yth. '.$result_customer['nama'].'</span><br>
-	<span>'.$result_customer['alamat'].'</span><br>
-	<span>Kode : '.$kode.'</span><br>
+    <table border="none" style="background-color: #eeeeee;">
+        <tr>
+            <td width="25%">
+                <div style="padding: 10px;">
+                    <img src="../assets/img/AVUI.jpg">
+                </div>                
+            </td>
+            <td width="42.5%" style="padding: 10px;">
+                <div style="padding: 10px; font-size: 10px;">
+                    <span>Alamat</span> <br>
+                    <span>Jalan Nakula 10 A Denpasar,Bali</span>
+                </div>
+            </td>
+            <td width="32.5%" style="padding: 10px;">
+                <div style="padding: 10px; font-size: 10px;">
+                    <span>Kepada </span><br>
+	                <span>Yth. '.$result_customer['nama'].'</span><br>
+	                <span>'.$result_customer['alamat'].'</span><br>
+	                <span>Kode : '.$kode.'</span><br>
+                </div>
+            </td>
+        </tr>
+    </table>
 	<div margin-bottom:40px;></div>
 ';
 // Print text using writeHTMLCell()
@@ -101,8 +120,8 @@ foreach ($results  as $key => $value) {
 	$html .= '
 		<tr>
 			<td>'.$value["pengerjaan"].'</td>
-			<td align="right">'.number_format($value["uang_muka"]).'</td>
-			<td align="right">'.number_format($total).'</td>
+			<td align="right">Rp '.number_format($value["uang_muka"]).'</td>
+			<td align="right">Rp '.number_format($total).'</td>
 		</tr>
 	';
 }
@@ -111,7 +130,7 @@ $html .= '
 	<tfoot>
 		<tr>
 			<td colspan="2">Total</td>
-			<td align="right">'.number_format($grandTotal).'</td>
+			<td align="right">Rp '.number_format($grandTotal).'</td>
 		</tr>
 	</tfoot>
 </table>';

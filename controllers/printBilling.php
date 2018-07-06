@@ -87,7 +87,8 @@ $html = '
             <td width="42.5%" style="padding: 10px;">
                 <div style="padding: 10px; font-size: 10px;">
                     <span>Alamat</span> <br>
-                    <span>Jalan Nakula 10 A Denpasar,Bali</span>
+                    <span>Jalan Camplung Tanduk No 99x</span> <br>
+                    <span>Seminyak Kuta Bali</span> <br>
                 </div>
             </td>
             <td width="32.5%" style="padding: 10px;">

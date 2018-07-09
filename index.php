@@ -109,10 +109,8 @@ if (!isset($_SESSION['logged_id']) ) {
       <section class="content">
 	<div class="container">
 	    <section class="content">
-	        <div class="callout callout-info">
+	        <div class="callout ">
 	          <h3>Selamat Datang!</h3>
-	          <hr>
-	          <p>Selamat datang di aplikasi billing.</p>
 	        </div>
 	      </section>
 	</div>

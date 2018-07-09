@@ -85,7 +85,7 @@ if (!isset($_SESSION['logged_id']) ) {
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-right">
-                    <a href="/logout.php?logout=1" class="btn btn-default btn-flat">Sign out</a>
+                    <a href="logout.php?logout=1" class="btn btn-default btn-flat">Sign out</a>
                   </div>
                 </li>
               </ul>
@@ -99,7 +99,13 @@ if (!isset($_SESSION['logged_id']) ) {
   </header>
 
 
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="background: url('assets/img/AVUI.jpg');    background-size: initial;
+    background-repeat: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: initial;
+    background-attachment: inherit;
+    background-position: center center;">
       <section class="content">
 	<div class="container">
 	    <section class="content">

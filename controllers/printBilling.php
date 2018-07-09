@@ -77,30 +77,32 @@ $pdf->AddPage();
 
 // Set some content to print
 $html = '
-    <table border="none" style="background-color: #eeeeee;">
+    <table border="none" >
         <tr>
-            <td width="25%">
+            <td >
                 <div style="padding: 10px;">
                     <img src="../assets/img/AVUI.jpg">
                 </div>                
             </td>
-            <td width="42.5%" style="padding: 10px;">
+            <td style="padding: 10px;">
                 <div style="padding: 10px; font-size: 10px;">
                     <span>Alamat</span> <br>
                     <span>Jalan Camplung Tanduk No 99x</span> <br>
                     <span>Seminyak Kuta Bali</span> <br>
                 </div>
             </td>
-            <td width="32.5%" style="padding: 10px;">
+            <td style="padding: 10px;">
                 <div style="padding: 10px; font-size: 10px;">
                     <span>Kepada </span><br>
 	                <span>Yth. '.$result_customer['nama'].'</span><br>
 	                <span>'.$result_customer['alamat'].'</span><br>
+	                <span>Tanggal : '.date('d/m/Y').'</span><br>
 	                <span>Kode : '.$kode.'</span><br>
                 </div>
             </td>
         </tr>
     </table>
+  	<hr/>
 	<div margin-bottom:40px;></div>
 ';
 // Print text using writeHTMLCell()
@@ -108,21 +110,24 @@ $html = '
 $html .= '<table border="1" style="border-collapse: collapse;margin-top:40px;">';
 $html .= '<thead>
 	<tr>
-		<th align="center">Pengerjaan</th>
-		<th align="center">Uang Muka</th>
-		<th align="center">Tagihan</th>
+		<th width="10%" align="center">No</th>
+		<th width="30%" align="center">Pengerjaan</th>
+		<th width="30%" align="center">Uang Muka</th>
+		<th width="30%" align="center">Tagihan</th>
 	</tr>
 </thead>
 <tbody>';
 $grandTotal = 0;
+$no = 0;
 foreach ($results  as $key => $value) {
 	$total = (double) $value["total_transaksi"] - (double) $value["uang_muka"];
 	$grandTotal += $total;
 	$html .= '
 		<tr>
-			<td>'.$value["pengerjaan"].'</td>
-			<td align="right">Rp '.number_format($value["uang_muka"]).'</td>
-			<td align="right">Rp '.number_format($total).'</td>
+			<td width="10%">'.++$no.'</td>
+			<td width="30%">'.$value["pengerjaan"].'</td>
+			<td width="30%" align="right">Rp '.number_format($value["uang_muka"]).'</td>
+			<td width="30%" align="right">Rp '.number_format($total).'</td>
 		</tr>
 	';
 }
@@ -130,7 +135,7 @@ $html .= '
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="2">Total</td>
+			<td colspan="3">Total</td>
 			<td align="right">Rp '.number_format($grandTotal).'</td>
 		</tr>
 	</tfoot>

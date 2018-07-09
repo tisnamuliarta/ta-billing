@@ -75,6 +75,13 @@ if (isset($_POST['login'])) {
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
+    <div class="image">
+      <div class="row">
+        <div class="col-md-12">
+          <img style="width: 100%; margin-bottom: 20px; " src="assets/img/AVUI.jpg">
+        </div>
+      </div>
+    </div>
     <form method="post">
       <?php echo $message; ?>
       <div class="form-group has-feedback">

@@ -40,7 +40,7 @@ if (!isset($_SESSION['logged_id']) ) {
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="../index.php" class="navbar-brand"><b>Billing</b></a>
+          <a href="index.php" class="navbar-brand"><b>Billing</b></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
@@ -62,41 +62,20 @@ if (!isset($_SESSION['logged_id']) ) {
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Notifications Menu -->
-            <li class="dropdown notifications-menu">
-              <!-- Menu toggle button -->
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-bell-o"></i>
-                <span class="label label-warning">10</span>
-              </a>
-              <ul class="dropdown-menu">
-                <li class="header">You have 10 notifications</li>
-                <li>
-                  <!-- Inner Menu: contains the notifications -->
-                  <ul class="menu">
-                    <li><!-- start notification -->
-                      <a href="#">
-                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                      </a>
-                    </li>
-                    <!-- end notification -->
-                  </ul>
-                </li>
-                <li class="footer"><a href="#">View all</a></li>
-              </ul>
-            </li>
+            
             <!-- User Account Menu -->
             <li class="dropdown user user-menu">
               <!-- Menu Toggle Button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
-                <img src="/assets/img/<?= $_SESSION['avatar'] ?>" class="user-image" alt="User Image">
+                <img src="assets/img/<?= $_SESSION['avatar'] ?>" class="user-image" alt="User Image">
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 <span class="hidden-xs"><?php echo $_SESSION['username'] ?></span>
               </a>
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
                 <li class="user-header">
-                  <img src="/assets/img/<?= $_SESSION['avatar'] ?>" class="img-circle" alt="User Image">
+                  <img src="assets/img/<?= $_SESSION['avatar'] ?>" class="img-circle" alt="User Image">
 
                   <p>
                     <?php echo $_SESSION['username'] ?> - <?= $_SESSION['jabatan'] ?>
@@ -140,25 +119,25 @@ if (!isset($_SESSION['logged_id']) ) {
 		</footer>
 	</div>
 	<!-- jQuery 3 -->
-	<script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap 3.3.7 -->
-	<script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<!-- SlimScroll -->
-	<script src="../assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 	<!-- FastClick -->
-	<script src="../assets/bower_components/fastclick/lib/fastclick.js"></script>
+	<script src="assets/bower_components/fastclick/lib/fastclick.js"></script>
 	<!-- date-range-picker -->
-	<script src="../assets/bower_components/moment/min/moment.min.js"></script>
-	<script src="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="assets/bower_components/moment/min/moment.min.js"></script>
+	<script src="assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 	<!-- bootstrap datepicker -->
-	<script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+	<script src="assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 	<!-- AdminLTE App -->
-	<script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-	<script src="../assets/dist/js/adminlte.min.js"></script>
-	<script src="../assets/js/app.js"></script>
-	<script src="../assets/js/index.js"></script>
-	<script src="../assets/js/jsCookie.js"></script>
+	<script src="assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script src="assets/dist/js/adminlte.min.js"></script>
+	<script src="assets/js/app.js"></script>
+	<script src="assets/js/index.js"></script>
+	<script src="assets/js/jsCookie.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			var url = window.location.pathname;

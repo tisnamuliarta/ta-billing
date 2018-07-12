@@ -57,6 +57,11 @@ require_once('../include/head.php');
 <?php require_once('../include/footer.php') ?>
 
 <script>
+    $(document).ready(function (e) {
+        $('#uang_muka').autoNumeric('init');
+        $('#total_transaksi ').autoNumeric('init');
+    });
+
     var transaksiTable = $('#transaksitable').DataTable({
         "processing":true,
         "serverSide":true,
@@ -426,14 +431,14 @@ require_once('../include/head.php');
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Uang Muka</label>
-                                <input type="number" name="uang_muka" id="uang_muka" class="form-control" required />
+                                <input type="text" name="uang_muka" id="uang_muka" class="form-control" required />
                                 <div class="text-danger" id="emailError"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Total Pembayaran</label>
-                                <input type="number" name="total_transaksi" id="total_transaksi" class="form-control" required />
+                                <input type="text" name="total_transaksi" id="total_transaksi" class="form-control" required />
                                 <div class="text-danger" id="emailError"></div>
                             </div>
                         </div>

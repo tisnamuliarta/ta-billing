@@ -25,6 +25,7 @@
 <script src="../assets/js/app.js"></script>
 <script src="../assets/js/index.js"></script>
 <script src="../assets/js/jsCookie.js"></script>
+<script src="../assets/js/AutoNumeric.js"></script>
 <script type="text/javascript">
 	$(function(){
 		var url = window.location.pathname;

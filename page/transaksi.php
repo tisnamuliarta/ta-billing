@@ -59,7 +59,15 @@ require_once('../include/head.php');
 <script>
     $(document).ready(function (e) {
         $('#uang_muka').autoNumeric('init');
+        $('#uang_muka').bind('blur focusout keypress keyup', function () {
+            var getUangMuka = $('#uang_muka').autoNumeric('get');
+            $('#uang_muka_hide').val(getUangMuka);
+        });
         $('#total_transaksi ').autoNumeric('init');
+        $('#total_transaksi').bind('blur focusout keypress keyup', function () {
+            var getTotalTransaksi = $('#total_transaksi').autoNumeric('get');
+            $('#total_transaksi_hide').val(getTotalTransaksi);
+        });
     });
 
     var transaksiTable = $('#transaksitable').DataTable({
@@ -431,14 +439,16 @@ require_once('../include/head.php');
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Uang Muka</label>
-                                <input type="text" name="uang_muka" id="uang_muka" class="form-control" required />
+                                <input type="text" id="uang_muka" class="form-control" required />
+                                <input type="hidden" name="uang_muka" id="uang_muka_hide" class="form-control" required />
                                 <div class="text-danger" id="emailError"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Total Pembayaran</label>
-                                <input type="text" name="total_transaksi" id="total_transaksi" class="form-control" required />
+                                <input type="text" id="total_transaksi" class="form-control" required />
+                                <input type="hidden" name="total_transaksi" id="total_transaksi_hide" class="form-control" required />
                                 <div class="text-danger" id="emailError"></div>
                             </div>
                         </div>

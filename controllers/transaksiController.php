@@ -39,8 +39,8 @@ function saveData($connect) {
             ':id_customer'      => $_POST['id_customer'],
             ':tgl'              => date_format($tgl, 'Y-m-d'),
             ':pengerjaan'       => $_POST['pengerjaan'],
-            ':uang_muka'        => $_POST['uang_muka'],
-            ':total_transaksi'  => $_POST['total_transaksi'],
+            ':uang_muka'        => (double)$_POST['uang_muka'],
+            ':total_transaksi'  =>(double) $_POST['total_transaksi'],
             ':kode'             => $_POST['kode']
         )
     );

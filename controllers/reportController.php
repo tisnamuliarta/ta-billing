@@ -151,6 +151,7 @@ function getDataReport($connect) {
         SELECT id_customer, kode, (SELECT tb_customer.nama FROM tb_customer WHERE tb_customer.id=tb_transaksi.id_customer) as nama_customer
         FROM tb_transaksi 
         LEFT JOIN tb_customer ON tb_customer.id = tb_transaksi.id 
+        LEFT JOIN tb_pengerjaan_transaksi ON tb_transaksi.id = tb_pengerjaan_transaksi.id_transaksi
     ";
     if (isset($_GET["search"]["value"])) {
         $query .= 'WHERE (SELECT tb_customer.nama FROM tb_customer WHERE tb_customer.id=tb_transaksi.id_customer) LIKE "%'.$_GET["search"]["value"].'%" ';
@@ -198,7 +199,9 @@ function get_total_all_records($connect)
 {
     $statement = $connect->prepare('SELECT id_customer, kode, (SELECT tb_customer.nama FROM tb_customer WHERE tb_customer.id=tb_transaksi.id_customer) as nama_customer
         FROM tb_transaksi 
-        LEFT JOIN tb_customer ON tb_customer.id = tb_transaksi.id ');
+        LEFT JOIN tb_customer ON tb_customer.id = tb_transaksi.id 
+        LEFT JOIN tb_pengerjaan_transaksi ON tb_transaksi.id = tb_pengerjaan_transaksi.id_transaksi
+        ');
     $statement->execute();
     return $statement->rowCount();
 }

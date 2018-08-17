@@ -25,7 +25,27 @@ if(isset($_POST['btn_action'])) {
         case 'edit_pengerjaan':
             updatePengerjaan($connect);
             break;
+        case 'getCode':
+            getCode($connect);
+            break;
     }
+}
+
+function getCode($connect) {
+    $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $query = $connect->prepare("SELECT MAX(kode) as code FROM tb_transaksi");
+    $query->execute();
+    $result = $query->fetch();
+    if ($result) {
+        $codeResult = substr($result['code'], 1);
+        $code = (int) $codeResult;
+        $code = $code + 1;
+        $autoCode = "T".str_pad($code,6,"0",STR_PAD_LEFT);
+        echo json_encode($autoCode);
+    } else {
+        echo json_encode("T000001");
+    }
+    
 }
 
 function saveData($connect) {
@@ -141,7 +161,6 @@ function editData($connect) {
         tgl = :tgl,
         pengerjaan = :pengerjaan,
         uang_muka = :uang_muka,
-        kode = :kode,
         total_transaksi = :total_transaksi
         WHERE id = :id
     ";
@@ -154,7 +173,6 @@ function editData($connect) {
             ':tgl'              => date_format($tgl, 'Y-m-d'),
             ':pengerjaan'       => $_POST['pengerjaan'],
             ':uang_muka'        => $_POST['uang_muka'],
-            ':kode'             => $_POST['kode'],
             ':total_transaksi'  => $_POST['total_transaksi']
         )
     );

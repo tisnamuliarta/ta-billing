@@ -50,9 +50,11 @@ require_once('../include/head.php');
 
 <?php require_once('../include/footer.php') ?>
 
-
-
 <script>
+    $(function() {
+        $('#tlpn').inputmask({"mask": "999-999-999-9999"})
+    });
+
     var userTable = $('#userstable').DataTable({
         "processing":true,
         "serverSide":true,
@@ -122,7 +124,14 @@ require_once('../include/head.php');
                 $('#username').val(data.username);
                 $('#alamat').val(data.alamat);
                 $('#email').val(data.email);
-                $('input[name="status"][value="'+data.status+'"]').prop('checked',true);
+                $('select#jabatan').val(data.jabatan);
+                if (data.jabatan === 'admin') {
+                    $('input[name="status"]').attr('disabled',true);
+                    $('input[name="status"][value="'+data.status+'"]').prop('checked',true);
+                } else {
+                    $('input[name="status"]').attr('disabled',false);
+                    $('input[name="status"][value="'+data.status+'"]').prop('checked',true);
+                }
                 // $('#'+data.status+'').prop('checked',true);
                 $('#tlpn').val(data.tlpn);
                 $('.modal-title').html("<i class='fa fa-pencil-square-o'></i> Edit User");
@@ -175,7 +184,7 @@ require_once('../include/head.php');
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Jabatan</label>
-                                <select name="jabatan" class="form-control">
+                                <select name="jabatan" id="jabatan" class="form-control">
                                     <option value="desainer">Desainer</option>
                                     <option value="admin">Admin</option>
                                 </select>
@@ -184,7 +193,7 @@ require_once('../include/head.php');
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Handphone</label>
-                                <input type="number" name="tlpn" id="tlpn" class="form-control" required />
+                                <input type="text" name="tlpn" id="tlpn" class="form-control" required />
                                 <div class="text-danger" id="emailError"></div>
                             </div>
                         </div>

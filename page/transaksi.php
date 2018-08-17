@@ -60,7 +60,9 @@ require_once('../include/head.php');
     $(document).ready(function (e) {
         $('#uang_muka').autoNumeric('init');
         $('#total_transaksi ').autoNumeric('init');
+        
     });
+
 
     var transaksiTable = $('#transaksitable').DataTable({
         "processing":true,
@@ -85,13 +87,35 @@ require_once('../include/head.php');
         $('#transaksiModal').modal('show');
         $('.modal-title').html("<i class='fa fa-plus'></i> Tambah Transaksi");
         $('#user_form')[0].reset();
+        $('#datepicker').datepicker('setDate',new Date());
         $('#action').val('Tambah');
         $('#btn_action').val('Add');
+        var code = getCode();
     });
+
+    function getCode() {
+        var code = '';
+        $.ajax({
+            url: "../controllers/transaksiController.php",
+            method: "POST",
+            data: {btn_action: 'getCode'},
+            dataType: "JSON",
+            success: function(data) {
+                $('#kode').val(data);
+            }
+        })
+        .done(function(data){
+            $('#kode').val(data);
+        });
+    }
 
     // ============= save data
     $(document).on('submit','#user_form', function(e){
         e.preventDefault();
+        var getUangMuka = $('#uang_muka').autoNumeric('get');
+        $('#uang_muka_get').val(getUangMuka);
+        var getTotalTransaksi = $('#total_transaksi').autoNumeric('get');
+        $('#total_transaksi_get').val(getTotalTransaksi);
         // $('#action').attr('disabled','disabled');
         var formData = $(this).serialize();
         $.ajax({
@@ -126,7 +150,7 @@ require_once('../include/head.php');
             success: function(data){
                 $('#transaksiModal').modal('show');
                 // $('#pekerjaan_ayah').val(data.pekerjaan_ayah);
-                $('#id_customer').val(data.id_customer);
+                $('select#id_customer').val(data.id_customer);
                 $('#pengerjaan').val(data.pengerjaan);
                 $('.tgl').val(data.tgl);
                 $('input[name="status"][value="'+data.status+'"]').prop('checked',true);
@@ -398,7 +422,7 @@ require_once('../include/head.php');
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label>Customer</label>
-                                <select class="form-control" name="id_customer">
+                                <select class="form-control" id="id_customer" name="id_customer">
                                     <?php echo getListCostomer($connect) ?>
                                 </select>
                             </div>
@@ -406,7 +430,7 @@ require_once('../include/head.php');
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Kode</label>
-                                <input type="text" name="kode" id="kode" class="form-control" required />
+                                <input type="text" readonly="readonly" name="kode" id="kode" class="form-control" required />
                             </div>
                         </div>
                     </div>
@@ -431,14 +455,16 @@ require_once('../include/head.php');
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Uang Muka</label>
-                                <input type="text" name="uang_muka" id="uang_muka" class="form-control" required />
+                                <input type="text" name="uang_mukas" id="uang_muka" class="form-control" required />
+                                <input type="hidden" name="uang_muka" id="uang_muka_get" class="form-control" required />
                                 <div class="text-danger" id="emailError"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Total Pembayaran</label>
-                                <input type="text" name="total_transaksi" id="total_transaksi" class="form-control" required />
+                                <input type="text" name="total_transaksis" id="total_transaksi" class="form-control" required />
+                                <input type="hidden" name="total_transaksi" id="total_transaksi_get" class="form-control" required />
                                 <div class="text-danger" id="emailError"></div>
                             </div>
                         </div>

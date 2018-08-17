@@ -18,6 +18,10 @@
 <script src="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- bootstrap datepicker -->
 <script src="../assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- InputMask -->
+<script src="../assets/input-mask/jquery.inputmask.js"></script>
+<script src="../assets/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="../assets/input-mask/jquery.inputmask.extensions.js"></script>
 <!-- AdminLTE App -->
 <script src="../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -35,8 +39,12 @@
 		//Date picker
 		$('#datepicker').datepicker({
 		  	autoclose: true,
-			format: 'mm-dd-yyyy'
-		})
+			format: 'yyyy-mm-dd',
+			todayHighlight: true,
+			toggleActive: true
+		});
+		$('#datepicker').datepicker('setDate',new Date());
+		$('#datepicker').datepicker('update', '2018-08-08');
 
 	})
 </script>

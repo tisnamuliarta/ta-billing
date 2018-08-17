@@ -105,8 +105,8 @@ require_once('../include/head.php');
             if (result.success) {
                 var url = '../controllers/printBilling.php?id_customer='+id+'&kode='+kode;
                 var params = [
-                    'height='+screen.availHeight,
-                    'width='+screen.availWidth,
+                    'height=600',
+                    'width=1024',
                     'fullscreen=yes',
                     'alwaysLowered = false'
                 ].join(',');

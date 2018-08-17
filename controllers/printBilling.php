@@ -68,7 +68,7 @@ $pdf->setPrintFooter(false);
 // dejavusans is a UTF-8 Unicode font, if you only need to
 // print standard ASCII chars, you can use core fonts like
 // helvetica or times to reduce file size.
-$pdf->SetFont('microsoftyahei', '', 14, '', true);
+$pdf->SetFont('microsoftyahei', '', 12, '', true);
 
 // Add a page
 // This method has several options, check the source code documentation for more information.
@@ -112,8 +112,9 @@ $html .= '<thead>
 	<tr>
 		<th width="10%" align="center">No</th>
 		<th width="30%" align="center">Pengerjaan</th>
-		<th width="30%" align="center">Uang Muka</th>
-		<th width="30%" align="center">Tagihan</th>
+		<th width="20%" align="center">Uang Muka</th>
+		<th width="20%" align="center">Total Transaksi</th>
+		<th width="20%" align="center">Tagihan</th>
 	</tr>
 </thead>
 <tbody>';
@@ -126,8 +127,9 @@ foreach ($results  as $key => $value) {
 		<tr>
 			<td width="10%">'.++$no.'</td>
 			<td width="30%">'.$value["pengerjaan"].'</td>
-			<td width="30%" align="right">Rp '.number_format($value["uang_muka"]).'</td>
-			<td width="30%" align="right">Rp '.number_format($total).'</td>
+			<td width="20%" align="right">Rp '.number_format($value["uang_muka"]).'</td>
+			<td width="20%" align="right">Rp '.number_format($value["total_transaksi"]).'</td>
+			<td width="20%" align="right">Rp '.number_format($total).'</td>
 		</tr>
 	';
 }
@@ -135,7 +137,7 @@ $html .= '
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="3">Total</td>
+			<td colspan="4">Total Tagihan</td>
 			<td align="right">Rp '.number_format($grandTotal).'</td>
 		</tr>
 	</tfoot>

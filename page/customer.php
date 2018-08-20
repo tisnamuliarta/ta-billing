@@ -48,6 +48,10 @@ require_once('../include/head.php');
 <?php require_once('../include/footer.php') ?>
 
 <script>
+    $(function() {
+        $('#tlpn').inputmask({"mask": "999-999-999-9999"})
+    });
+
     var userTable = $('#userstable').DataTable({
         "processing":true,
         "serverSide":true,
@@ -170,7 +174,7 @@ require_once('../include/head.php');
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Handphone</label>
-                                <input type="number" name="tlpn" id="tlpn" class="form-control" required />
+                                <input type="text" name="tlpn" id="tlpn" class="form-control" required />
                                 <div class="text-danger" id="emailError"></div>
                             </div>
                         </div>
